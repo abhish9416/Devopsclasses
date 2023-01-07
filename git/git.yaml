@@ -1,0 +1,12 @@
+---
+- name: install git on the ubuntu server
+  host: all
+  become: yes
+  task:
+    - name: install git on ubuntu machine
+      ansible.builtin.apt:
+        name: git
+        update_cache: yes
+        state: present
+
+    
