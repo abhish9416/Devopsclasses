@@ -1,8 +1,8 @@
 ---
 - name: install git on the ubuntu server
-  host: all
+  hosts: all
   become: yes
-  task:
+  tasks:
     - name: install git on ubuntu machine
       ansible.builtin.apt:
         name: git
