@@ -5,6 +5,6 @@
   tasks :
     - name : install nginx
       ansible.builtin.apt:
-       name: nginx
-       update_cahe : yes
-       state: yes
+        name: nginx
+        update_cahe : yes
+        state: yes
