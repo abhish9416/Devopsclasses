@@ -1,10 +1,9 @@
 ---
-
-- name : install Ngnix on Ubuntu Machine
+- name : install nginx
   hosts : all
   become : yes
   tasks :
-    - name : install nginx on Ubuntu
+    - name : install nginx
       ansible.builtin.apt:
        name: nginx
        update_cahe : yes
