@@ -29,8 +29,6 @@
       ansible.builtin.file :
         src : /opt/tomcat/apache-tomcat-10.1.4
         dest : /opt/tomcat/latest
-        owner : tomcat
-        group : tomcat
         state : link
     - name : change permission
       ansible.builtin.file:
@@ -39,4 +37,3 @@
         owner : tomcat
         group : tomcat
         state : directory
-        
