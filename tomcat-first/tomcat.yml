@@ -22,6 +22,6 @@
         state : present
     - name : Extract /tmp/apache-tomcat-10.1.4
       ansible.builtin.unarchive :
-      src : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.1.4/bin/apache-tomcat-10.1.4.tar.gz
-      remote_src : yes
-      dest : /opt/tomcat/
+        src : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.1.4/bin/apache-tomcat-10.1.4.tar.gz
+        remote_src : yes
+        dest : /opt/tomcat/
