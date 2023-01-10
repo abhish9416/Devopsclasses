@@ -25,3 +25,8 @@
         src : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.1.4/bin/apache-tomcat-10.1.4.tar.gz
         remote_src : yes
         dest : /opt/tomcat/
+    - name : create a symbolic link for tomcat
+      ansible.builtin.file :
+        src : /opt/tomcat/apache-tomcat-10.1.4
+        dest : /opt/tomcat/latest
+        state : link
