@@ -20,8 +20,8 @@
         home : /opt/tomcat
         shell : /bin/false
         state : present
-    - name : Download the tomcat 10 on ubuntu
-      ansible.builtin.get_url :
-        url : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.1.4/bin/apache-tomcat-10.1.4.tar.gz
-        dest : /tmp/apache-tomcat-10.1.4.tar.gz
-
+    - name : Extract /tmp/apache-tomcat-10.1.4
+      ansible.builtin.unarchive :
+      src : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.1.4/bin/apache-tomcat-10.1.4.tar.gz
+      remote_src : yes
+      dest : /opt/tomcat/
