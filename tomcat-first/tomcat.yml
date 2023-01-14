@@ -57,7 +57,7 @@
         state : started
     - name : copy the user xml
       ansible.builtin.copy :
-        src : tomcat-user.xml
+        src : tomcat-users.xml
         dest : /opt/tomcat/latest/conf/tomcat-users.xml 
         owner : tomcat
         group : tomcat
