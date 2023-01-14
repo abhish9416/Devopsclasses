@@ -20,20 +20,24 @@
         home : /opt/tomcat
         shell : /bin/false
         state : present
-    - name : Extract /tmp/apache-tomcat-10.0.27
-      ansible.builtin.unarchive :
-        src : https://dlcdn.apache.org/tomcat/tomcat-10/v10.0.27/bin/apache-tomcat-10.0.27.tar.gz
-        dest : /opt/tomcat/
-        remote_src : yes
-    - name : create a symbolic link for tomcat
-      ansible.builtin.file :
-        src : /opt/tomcat/apache-tomcat-10.0.27
-        dest : /opt/tomcat/latest
-        state : link
-    - name : change permission
-      ansible.builtin.file:
-        dest : /opt/tomcat/
-        recurse : yes
-        owner : tomcat
-        group : tomcat
-        state : directory
+    - name : download tomcat on ubuntu
+      ansible.builtin.get_url :
+        url : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.0.27/bin/apache-tomcat-10.0.27.tar.gz
+        dest : /tmp/apache-tomcat-10.0.27.tar.gz
+    # - name : Extract /tmp/apache-tomcat-10.0.27
+    #   ansible.builtin.unarchive :
+    #     src : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.0.27/bin/apache-tomcat-10.0.27.tar.gz
+    #     dest : /opt/tomcat/
+    #     remote_src : yes
+    # - name : create a symbolic link for tomcat
+    #   ansible.builtin.file :
+    #     src : /opt/tomcat/apache-tomcat-10.0.27
+    #     dest : /opt/tomcat/latest
+    #     state : link
+    # - name : change permission
+    #   ansible.builtin.file:
+    #     dest : /opt/tomcat/
+    #     recurse : yes
+    #     owner : tomcat
+    #     group : tomcat
+    #     state : directory
