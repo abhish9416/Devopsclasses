@@ -52,6 +52,6 @@
     - name : Demon Reload
       ansible.builtin.systemd :
         name : tomcat.service
-        daemon_reload : true
-        enabled : true
+        daemon_reload : yes
+        enabled : yes
         state : started
