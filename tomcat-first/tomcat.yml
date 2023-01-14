@@ -27,7 +27,7 @@
         remote_src : yes
     - name : create a symbolic link for tomcat
       ansible.builtin.file :
-        src : /opt/tomcat/apache-tomcat-10.1.4
+        src : /opt/tomcat/apache-tomcat-10.0.27
         dest : /opt/tomcat/latest
         state : link
     - name : change permission
