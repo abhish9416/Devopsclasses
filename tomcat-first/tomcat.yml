@@ -23,13 +23,13 @@
     - name : download tomcat on Ubuntu
       ansible.builtin.get_url :
         url : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.1.4/bin/apache-tomcat-10.1.4.tar.gz
-        dest : /tmp
+        dest : /tmp/apache-tomcat-10.1.4.tar.gz
 
     - name : Extract /tmp/apache-tomcat-10.1.4
       ansible.builtin.unarchive :
         src : /tmp
         dest : /opt/tomcat/
-        
+
     - name : create a symbolic link for tomcat
       ansible.builtin.file :
         src : /opt/tomcat/apache-tomcat-10.1.4
