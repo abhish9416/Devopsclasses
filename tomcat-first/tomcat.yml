@@ -55,3 +55,25 @@
         daemon_reload : yes
         enabled : yes
         state : started
+    - name : copy the user xml
+      ansible.builtin.copy :
+        src : tomcat-user.xml
+        dest : /opt/tomcat/latest/conf/tomcat-users.xml 
+        owner : tomcat
+        group : tomcat
+    - name : copy the context.xml
+      ansible.builtin.copy :
+        src : context.xml
+        dest : /opt/tomcat/latest/webapps/manager/META-INF/context.xml
+        owner : tomcat
+        group : tomcat
+    - name : copy the hostmanager xml
+      ansible.builtin.copy :
+        src : hostmanager-context.xml
+        dest : /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
+        owner : tomcat
+        group : tomcat
+    - name : restart tomcat
+      ansible.builtin.systemd :
+        name : tomcat.service
+        state : restarted
