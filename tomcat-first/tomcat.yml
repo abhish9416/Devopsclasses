@@ -34,10 +34,10 @@
         src : /opt/tomcat/apache-tomcat-10.0.27
         dest : /opt/tomcat/latest
         state : link
-    # - name : change permission
-    #   ansible.builtin.file:
-    #     dest : /opt/tomcat/
-    #     recurse : yes
-    #     owner : tomcat
-    #     group : tomcat
-    #     state : directory
+    - name : change permission
+      ansible.builtin.file:
+        dest : /opt/tomcat/
+        recurse : yes
+        owner : tomcat
+        group : tomcat
+        state : directory
