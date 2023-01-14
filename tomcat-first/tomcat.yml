@@ -20,13 +20,13 @@
         home : /opt/tomcat
         shell : /bin/false
         state : present
-    - name : download tomcat on ubuntu
-      ansible.builtin.get_url :
-        url : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.0.27/bin/apache-tomcat-10.0.27.tar.gz
-        dest : /tmp/apache-tomcat-10.0.27.tar.gz
+    # - name : download tomcat on ubuntu
+    #   ansible.builtin.get_url :
+    #     url : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.0.27/bin/apache-tomcat-10.0.27.tar.gz
+    #     dest : /tmp/apache-tomcat-10.0.27.tar.gz
     - name : Extract /tmp/apache-tomcat-10.0.27
       ansible.builtin.unarchive :
-        src :  /tmp/apache-tomcat-10.0.27.tar.gz
+        src : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.0.27/bin/apache-tomcat-10.0.27.tar.gz
         dest : /opt/tomcat/
         remote_src : yes
     # - name : create a symbolic link for tomcat
