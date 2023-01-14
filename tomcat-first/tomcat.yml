@@ -22,7 +22,7 @@
         state : present
     - name : download tomcat on Ubuntu
       ansible.builtin.get_url :
-        url : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.1.4/bin/apache-tomcat-10.1.4.tar.gz
+        url : https://dlcdn.apache.org/tomcat/tomcat-10/v10.0.27/bin/apache-tomcat-10.0.27.tar.gz
         dest : /tmp/apache-tomcat-10.1.4.tar.gz
 
     - name : Extract /tmp/apache-tomcat-10.1.4
