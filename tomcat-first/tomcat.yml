@@ -2,21 +2,26 @@
 - name : install tomcat 10 on ubuntu 22.04
   hosts: all
   become : yes
+  vars :
+    java_package_name : openjdk-11-jdk
+    user_name : tomcat
+    group_name : tomcat
+    
   tasks:
     - name : Java installation
       ansible.builtin.apt: 
-        name : openjdk-11-jdk
+        name : {{java_package_name}}
         update_cache: yes 
         state: present
     - name : create a tomcat group
       ansible.builtin.group :
-        name : tomcat
+        name : {{user_name}}
         state : present
     - name : Create a tomcat user
       ansible.builtin.user:
-        name : tomcat 
+        name : {{user_name}} 
         create_home : yes
-        group : tomcat
+        group : {{group_name}}
         home : /opt/tomcat
         shell : /bin/false
         state : present
@@ -38,8 +43,8 @@
       ansible.builtin.file:
         dest : /opt/tomcat/
         recurse : yes
-        owner : tomcat
-        group : tomcat
+        owner : {{user_name}}
+        group : {{group_name}}
         state : directory
     - name : add execute permission for the shell files
       ansible.builtin.command : sudo sh -c 'chmod +x /opt/tomcat/latest/bin/*.sh'
@@ -47,8 +52,8 @@
       ansible.builtin.copy :
         src : tomcat.service
         dest : /etc/systemd/system/tomcat.service
-        owner : tomcat
-        group : tomcat
+        owner : {{user_name}}
+        group : {{group_name}}
     - name : Demon Reload
       ansible.builtin.systemd :
         name : tomcat.service
@@ -59,20 +64,20 @@
       ansible.builtin.copy :
         src : tomcat-users.xml
         dest : /opt/tomcat/latest/conf/tomcat-users.xml 
-        owner : tomcat
-        group : tomcat
+        owner : {{user_name}}
+        group : {{group_name}}
     - name : copy the context.xml
       ansible.builtin.copy :
         src : context.xml
         dest : /opt/tomcat/latest/webapps/manager/META-INF/context.xml
-        owner : tomcat
-        group : tomcat
+        owner : {{user_name}}
+        group : {{group_name}}
     - name : copy the hostmanager xml
       ansible.builtin.copy :
         src : hostmanager-context.xml
         dest : /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
-        owner : tomcat
-        group : tomcat
+        owner : {{user_name}}
+        group : {{group_name}}
     - name : restart tomcat
       ansible.builtin.systemd :
         name : tomcat.service
