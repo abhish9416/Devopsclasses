@@ -15,7 +15,7 @@
         state: present
     - name : create a tomcat group
       ansible.builtin.group :
-        name : "{{ user_name }}"
+        name : "{{ group_name }}"
         state : present
     - name : Create a tomcat user
       ansible.builtin.user:
