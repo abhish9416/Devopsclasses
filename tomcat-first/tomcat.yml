@@ -6,6 +6,8 @@
     java_package_name : openjdk-11-jdk
     owner_name : tomcat
     group_name : tomcat
+    home_directory : /opt/tomcat
+    Shell_directory : /bin/false
     
   tasks:
     - name : Java installation
@@ -22,8 +24,8 @@
         name : tomcat
         create_home : yes
         group : "{{ group_name }}"
-        home : /opt/tomcat
-        shell : /bin/false
+        home : "{{ home_directory }}"
+        shell : "{{ Shell_directory }}"
         state : present
     # - name : download tomcat on ubuntu
     #   ansible.builtin.get_url :
@@ -36,8 +38,8 @@
         remote_src : yes
     - name : create a symbolic link for tomcat
       ansible.builtin.file :
-        src : /opt/tomcat/apache-tomcat-10.0.27
-        dest : /opt/tomcat/latest
+        src : "{{ home_directory }}/apache-tomcat-10.0.27"
+        dest : "{{ home_directory }}/latest"
         state : link
     - name : change permission
       ansible.builtin.file:
@@ -63,19 +65,19 @@
     - name : copy the user xml
       ansible.builtin.copy :
         src : tomcat-users.xml
-        dest : /opt/tomcat/latest/conf/tomcat-users.xml 
+        dest : "{{ home_directory }}/latest/conf/tomcat-users.xml "
         owner : "{{ owner_name }}"
         group : "{{ group_name }}"
     - name : copy the context.xml
       ansible.builtin.copy :
         src : context.xml
-        dest : /opt/tomcat/latest/webapps/manager/META-INF/context.xml
+        dest : "{{ home_directory }}/latest/webapps/manager/META-INF/context.xml"
         owner : "{{ owner_name }}"
         group : "{{ group_name }}"
     - name : copy the hostmanager xml
       ansible.builtin.copy :
         src : hostmanager-context.xml
-        dest : /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
+        dest : "{{ home_directory }}/latest/webapps/host-manager/META-INF/context.xml"
         owner : "{{ owner_name }}"
         group : "{{ group_name }}"
     - name : restart tomcat
