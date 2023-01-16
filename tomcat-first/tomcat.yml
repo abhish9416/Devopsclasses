@@ -4,7 +4,7 @@
   become : yes
   vars :
     java_package_name : openjdk-11-jdk
-    user_name : tomcat
+    owner_name : tomcat
     group_name : tomcat
     
   tasks:
@@ -15,11 +15,11 @@
         state: present
     - name : create a tomcat group
       ansible.builtin.group :
-        name : "{{ group_name }}"
+        name : tomcat
         state : present
     - name : Create a tomcat user
       ansible.builtin.user:
-        name : "{{ user_name }} "
+        name : tomcat
         create_home : yes
         group : "{{ group_name }}"
         home : /opt/tomcat
@@ -43,7 +43,7 @@
       ansible.builtin.file:
         dest : /opt/tomcat/
         recurse : yes
-        owner : "{{ user_name }}"
+        owner : "{{ owner_name }}"
         group : "{{ group_name }}"
         state : directory
     - name : add execute permission for the shell files
@@ -52,7 +52,7 @@
       ansible.builtin.copy :
         src : tomcat.service
         dest : /etc/systemd/system/tomcat.service
-        owner : "{{ user_name }}"
+        owner : "{{ owner_name }}"
         group : "{{ group_name }}"
     - name : Demon Reload
       ansible.builtin.systemd :
@@ -64,19 +64,19 @@
       ansible.builtin.copy :
         src : tomcat-users.xml
         dest : /opt/tomcat/latest/conf/tomcat-users.xml 
-        owner : "{{ user_name }}"
+        owner : "{{ owner_name }}"
         group : "{{ group_name }}"
     - name : copy the context.xml
       ansible.builtin.copy :
         src : context.xml
         dest : /opt/tomcat/latest/webapps/manager/META-INF/context.xml
-        owner : "{{ user_name }}"
+        owner : "{{ owner_name }}"
         group : "{{ group_name }}"
     - name : copy the hostmanager xml
       ansible.builtin.copy :
         src : hostmanager-context.xml
         dest : /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
-        owner : "{{ user_name }}"
+        owner : "{{ owner_name }}"
         group : "{{ group_name }}"
     - name : restart tomcat
       ansible.builtin.systemd :
