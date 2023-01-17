@@ -2,6 +2,6 @@
 - name : test inventory
   hosts : all
   tasks:
-    - name : Print Something
+    - name : Print my variable
       ansible.builtin.debug :
-        msg : Hello
+        var : "name"
