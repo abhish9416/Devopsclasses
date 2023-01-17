@@ -8,3 +8,38 @@
         name : "{{ java_package_name }}"
         update_cache: yes 
         state: present
+    - name : create a tomcat group
+      ansible.builtin.group :
+        name : tomcat
+        state : present
+    - name : Create a tomcat user
+      ansible.builtin.user:
+        name : tomcat
+        create_home : yes
+        group : "{{ group_name }}"
+        home : "{{ home_directory }}"
+        shell : "{{ Shell_directory }}"
+        state : present
+    # - name : download tomcat on ubuntu
+    #   ansible.builtin.get_url :
+    #     url : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.0.27/bin/apache-tomcat-10.0.27.tar.gz
+    #     dest : /tmp/apache-tomcat-10.0.27.tar.gz
+    - name : Extract tomcat 
+      ansible.builtin.unarchive :
+        src : "https://www-eu.apache.org/dist/tomcat/tomcat-{{ tomcat_major_version }}/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
+        dest : /opt/tomcat/
+        remote_src : yes
+    - name : create a symbolic link for tomcat
+      ansible.builtin.file :
+        src : "{{ home_directory }}/apache-tomcat-{{ tomcat_version }}"
+        dest : "{{ home_directory }}/latest"
+        state : link
+    - name : change permission
+      ansible.builtin.file:
+        dest : /opt/tomcat/
+        recurse : yes
+        owner : "{{ owner_name }}"
+        group : "{{ group_name }}"
+        state : directory
+    - name : add execute permission for the shell files
+      ansible.builtin.command : sudo sh -c 'chmod +x /opt/tomcat/latest/bin/*.sh'
