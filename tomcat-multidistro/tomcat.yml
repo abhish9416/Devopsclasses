@@ -43,3 +43,17 @@
         state : directory
     - name : add execute permission for the shell files
       ansible.builtin.command : sudo sh -c 'chmod +x /opt/tomcat/latest/bin/*.sh'
+    - name : create a system Dunit file in centos
+      ansible.builtin.copy :
+        src : centos.tomcat.service
+        dest : /etc/systemd/system/tomcat.service
+        owner : "{{ owner_name }}"
+        group : "{{ group_name }}"
+      when : ansible_facts['distribution'] == 'CentOS'
+    - name : create a system Dunit file in ubuntu
+      ansible.builtin.copy :
+        src : ubuntu.tomcat.service
+        dest : /etc/systemd/system/tomcat.service
+        owner : "{{ owner_name }}"
+        group : "{{ group_name }}"
+      when : ansible_facts['distribution'] == 'Ubuntu'
