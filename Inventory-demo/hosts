@@ -1,2 +1,9 @@
 172.31.1.205
 localhost
+
+[ubuntu]
+172.31.1.205
+localhost
+
+[centos]
+20.121.55.193
