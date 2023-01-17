@@ -57,3 +57,9 @@
         owner : "{{ owner_name }}"
         group : "{{ group_name }}"
       when : ansible_facts['distribution'] == 'Ubuntu'
+    - name : Demon Reload
+      ansible.builtin.systemd :
+        name : "{{ tomcat_service_name }}"
+        daemon_reload : yes
+        enabled : yes
+        state : started
