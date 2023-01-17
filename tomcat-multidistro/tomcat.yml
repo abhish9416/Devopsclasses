@@ -1,0 +1,10 @@
+---
+- name : install tomcat 10 on ubuntu 22.04
+  hosts: all
+  become : yes
+  tasks:
+    - name : Java installation
+      ansible.builtin.package: 
+        name : "{{ java_package_name }}"
+        update_cache: yes 
+        state: present
