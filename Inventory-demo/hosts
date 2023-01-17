@@ -2,8 +2,8 @@
 localhost
 
 [ubuntu]
-172.31.1.205
-localhost
+172.31.1.205 name= node2
+localhost name = ansible control node
 
 [centos]
-20.127.196.242
+20.127.196.242 name = node3
