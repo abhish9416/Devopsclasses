@@ -3,10 +3,10 @@
   hosts : all
   tasks :
     - name : install utilities on ubuntu
-      ansible.builtin.package :
+      ansible.builtin.package:
         name : "{{ item }}"
         state : present
-      loops : "{{ packages }}"
+      loop : "{{ packages }}"
 
       
 
