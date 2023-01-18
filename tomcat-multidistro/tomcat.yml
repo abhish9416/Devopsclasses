@@ -24,7 +24,7 @@
     #   ansible.builtin.get_url :
     #     url : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.0.27/bin/apache-tomcat-10.0.27.tar.gz
     #     dest : /tmp/apache-tomcat-10.0.27.tar.gz
-    - name : get tomcat stats
+    - name : get tomcat status
       ansible.builtin.stat :
         path : /opt/tomcat/latest/bin/startup.sh
       register : tmocat_startuo
@@ -48,6 +48,7 @@
         state : directory
     - name : add execute permission for the shell files
       ansible.builtin.command : sudo sh -c 'chmod +x /opt/tomcat/latest/bin/*.sh'
+      when : tmocat_startuo.stat.exists == false
     - name : create a system Dunit file in centos
       ansible.builtin.copy :
         src : centos.tomcat.service
