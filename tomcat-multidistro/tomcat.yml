@@ -72,19 +72,19 @@
     - name : copy the user xml
       ansible.builtin.copy :
         src : tomcat-users.xml
-        dest : "{{ home_directory }}/latest/conf/tomcat-users.xml "
+        dest : /opt/tomcat/latest/conf/tomcat-users.xml
         owner : "{{ owner_name }}"
         group : "{{ group_name }}"
     - name : copy the context.xml
       ansible.builtin.copy :
         src : context.xml
-        dest : "{{ home_directory }}/latest/webapps/manager/META-INF/context.xml"
+        dest : /opt/tomcat/latest/webapps/manager/META-INF/context.xml
         owner : "{{ owner_name }}"
         group : "{{ group_name }}"
     - name : copy the hostmanager xml
       ansible.builtin.copy :
         src : hostmanager-context.xml
-        dest : "{{ home_directory }}/latest/webapps/host-manager/META-INF/context.xml"
+        dest : /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
         owner : "{{ owner_name }}"
         group : "{{ group_name }}"
     - name : restart tomcat
