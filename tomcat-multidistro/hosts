@@ -1,7 +1,6 @@
 [appservers]
 172.31.1.205 java_package_name=openjdk-11-jdk
 20.127.196.242 java_package_name=java-11-openjdk-devel
-localhost java_package_name=openjdk-11-jdk
 
 [appservers:vars]
 java_package_name = openjdk-11-jdk
