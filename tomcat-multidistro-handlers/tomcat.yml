@@ -39,14 +39,9 @@
         src : "{{ home_directory }}/apache-tomcat-{{ tomcat_version }}"
         dest : "{{ home_directory }}/latest"
         state : link
-    - name : change permission
-      ansible.builtin.file:
-        dest : /opt/tomcat/
-        recurse : yes
-        owner : "{{ owner_name }}"
-        group : "{{ group_name }}"
-        state : directory
-      notify : add execute permission for the shell files
+      notify : 
+        - change permission
+        - add execute permission for the shell files
     - name : create a system Dunit file in centos
       ansible.builtin.copy :
         src : centos.tomcat.service
@@ -99,3 +94,10 @@
         state : restarted
     - name : add execute permission for the shell files
       ansible.builtin.command : sudo sh -c 'chmod +x /opt/tomcat/latest/bin/*.sh'
+    - name : change permission
+      ansible.builtin.file:
+        dest : /opt/tomcat/
+        recurse : yes
+        owner : "{{ owner_name }}"
+        group : "{{ group_name }}"
+        state : directory
