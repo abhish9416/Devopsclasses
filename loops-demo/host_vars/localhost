@@ -1,0 +1,6 @@
+---
+packages:
+  - git
+  - tree
+  - nano
+  - net-tools

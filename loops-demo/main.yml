@@ -8,6 +8,9 @@
         state : present
       become : yes
       loop : "{{ packages }}"
+    - name : debug variables
+      ansible.builtin.debug:
+        var: purpose
 
       
 
