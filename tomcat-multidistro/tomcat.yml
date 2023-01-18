@@ -71,7 +71,7 @@
         state : started
     - name : copy the user xml
       ansible.builtin.copy :
-        src : tomcat-users.xml
+        src : users.xml
         dest : /opt/tomcat/latest/conf/tomcat-users.xml
         owner : "{{ owner_name }}"
         group : "{{ group_name }}"
@@ -83,7 +83,7 @@
         group : "{{ group_name }}"
     - name : copy the hostmanager xml
       ansible.builtin.copy :
-        src : hostmanager-context.xml
+        src : hostmanager.xml
         dest : /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
         owner : "{{ owner_name }}"
         group : "{{ group_name }}"
