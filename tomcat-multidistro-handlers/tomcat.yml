@@ -1,0 +1,95 @@
+---
+- name : install tomcat 10 on ubuntu 22.04
+  hosts: appservers
+  become : yes
+  tasks:
+    - name : Java installation
+      ansible.builtin.package: 
+        name : "{{ java_package_name }}"
+        update_cache: yes 
+        state: present
+    - name : create a tomcat group
+      ansible.builtin.group :
+        name : tomcat
+        state : present
+    - name : Create a tomcat user
+      ansible.builtin.user:
+        name : tomcat
+        create_home : yes
+        group : "{{ group_name }}"
+        home : "{{ home_directory }}"
+        shell : "{{ Shell_directory }}"
+        state : present
+    # - name : download tomcat on ubuntu
+    #   ansible.builtin.get_url :
+    #     url : https://www-eu.apache.org/dist/tomcat/tomcat-10/v10.0.27/bin/apache-tomcat-10.0.27.tar.gz
+    #     dest : /tmp/apache-tomcat-10.0.27.tar.gz
+    - name : get tomcat status
+      ansible.builtin.stat :
+        path : /opt/tomcat/latest/bin/startup.sh
+      register : tmocat_startuo
+    - name : Extract tomcat 
+      ansible.builtin.unarchive :
+        src : "https://www-eu.apache.org/dist/tomcat/tomcat-{{ tomcat_major_version }}/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
+        dest : /opt/tomcat/
+        remote_src : yes
+      when : tmocat_startuo.stat.exists == false
+    - name : create a symbolic link for tomcat
+      ansible.builtin.file :
+        src : "{{ home_directory }}/apache-tomcat-{{ tomcat_version }}"
+        dest : "{{ home_directory }}/latest"
+        state : link
+    - name : change permission
+      ansible.builtin.file:
+        dest : /opt/tomcat/
+        recurse : yes
+        owner : "{{ owner_name }}"
+        group : "{{ group_name }}"
+        state : directory
+    - name : add execute permission for the shell files
+      ansible.builtin.command : sudo sh -c 'chmod +x /opt/tomcat/latest/bin/*.sh'
+      when : tmocat_startuo.stat.exists == false
+    - name : create a system Dunit file in centos
+      ansible.builtin.copy :
+        src : centos.tomcat.service
+        dest : /etc/systemd/system/tomcat.service
+        owner : "{{ owner_name }}"
+        group : "{{ group_name }}"
+      when : ansible_facts['distribution'] == 'CentOS'
+    - name : create a system Dunit file in ubuntu
+      ansible.builtin.copy :
+        src : ubuntu.tomcat.service
+        dest : /etc/systemd/system/tomcat.service
+        owner : "{{ owner_name }}"
+        group : "{{ group_name }}"
+      when : ansible_facts['distribution'] == 'Ubuntu'
+    - name : Demon Reload
+      ansible.builtin.systemd :
+        name : "{{ tomcat_service_name }}"
+        daemon_reload : yes
+        enabled : yes
+        state : started
+    - name : copy the user xml
+      ansible.builtin.copy :
+        src : users.xml
+        dest : /opt/tomcat/latest/conf/tomcat-users.xml
+        owner : "{{ owner_name }}"
+        group : "{{ group_name }}"
+    - name : copy the context.xml
+      ansible.builtin.copy :
+        src : context.xml
+        dest : /opt/tomcat/latest/webapps/manager/META-INF/context.xml
+        owner : "{{ owner_name }}"
+        group : "{{ group_name }}"
+    - name : copy the hostmanager xml
+      ansible.builtin.copy :
+        src : hostmanager.xml
+        dest : /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
+        owner : "{{ owner_name }}"
+        group : "{{ group_name }}"
+      notify : restart tomcat
+  handlers :
+    - name : restart tomcat
+      ansible.builtin.systemd :
+        name : "{{ tomcat_service_name }}"
+        state : restarted
