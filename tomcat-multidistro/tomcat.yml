@@ -70,7 +70,7 @@
         enabled : yes
         state : started
     - name : copy the user xml
-      ansible.builtin.copy :
+      ansible.builtin.template :
         src : users.xml.j2
         dest : /opt/tomcat/latest/conf/tomcat-users.xml
         owner : "{{ owner_name }}"
