@@ -2,5 +2,5 @@
 - name : Installing Mysql
   hosts : all
   roles :
-    role : geerlingguy.mysql
-    become : yes
+    - role : geerlingguy.mysql
+      become : yes
