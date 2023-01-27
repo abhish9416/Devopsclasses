@@ -1,0 +1,18 @@
+---
+- name : Install Utilities
+  host : all
+  vars : 
+    utils :
+      - git
+      - nano
+      - tree
+  tasks :
+    - name : Install Utilities
+      ansible.builtin.apt :
+        name : "{{ utils }}"
+      notify :
+        - ensure ssh is running
+  handlers :
+    name : ensure ssh is running
+    ansible.builtin.systemd:
+      state: running
