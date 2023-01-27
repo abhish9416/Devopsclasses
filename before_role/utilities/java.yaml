@@ -8,7 +8,7 @@
     - name: install java
       ansible.builtin.apt:
         name: "{{ java_package }}"
-        update_chach: yes
+        update_chache: yes
         state: present
       notify:
         - installed java
