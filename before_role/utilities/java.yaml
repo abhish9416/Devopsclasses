@@ -7,7 +7,7 @@
   tasks:
     - name: install java
       ansible.builtin.apt:
-        name: "{{ java_package: }}"
+        name: "{{ java_package }}"
         update_chach: yes
         state: present
       notify:
