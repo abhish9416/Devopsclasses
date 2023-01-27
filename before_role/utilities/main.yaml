@@ -1,6 +1,7 @@
 ---
 - name : Install Utilities
   hosts : all
+  become : yes
   vars : 
     utils :
       - git
