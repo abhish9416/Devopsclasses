@@ -1,0 +1,7 @@
+---
+# tasks file for skeleton
+- name : Install Utils
+  ansible.builtin.apt :
+    name : "{{ utils }}"
+  notify :
+    - ensure ssh is running
