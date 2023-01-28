@@ -61,7 +61,7 @@
   notify : enable and reload tomcat
 - name : copy the user xml
   ansible.builtin.copy :
-    src : users.xml.j2
+    src : tomcat_users.xml.j2
     dest : /opt/tomcat/latest/conf/tomcat-users.xml
     owner : "{{ owner_name }}"
     group : "{{ group_name }}"
