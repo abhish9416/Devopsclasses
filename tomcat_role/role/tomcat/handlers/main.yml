@@ -1,0 +1,19 @@
+---
+# handlers file for skeleton
+- name : restart tomcat
+  ansible.builtin.systemd :
+    name : "{{ tomcat_service_name }}"
+    state : restarted
+- name : enable and reload tomcat
+  ansible.builtin.systemd :
+     name : "{{ tomcat_service_name }}"
+     state : restarted
+- name : add execute permission for the shell files
+  ansible.builtin.command : sudo sh -c 'chmod +x /opt/tomcat/latest/bin/*.sh'
+- name : change permission
+  ansible.builtin.file:
+    dest : /opt/tomcat/
+    recurse : yes
+    owner : "{{ owner_name }}"
+    group : "{{ group_name }}"
+    state : directory

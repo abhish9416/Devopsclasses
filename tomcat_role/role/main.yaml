@@ -1,0 +1,6 @@
+---
+- name: calling roles
+  become: yes
+  hosts: all
+  roles:
+    - tomcat
