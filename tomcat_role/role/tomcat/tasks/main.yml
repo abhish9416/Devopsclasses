@@ -28,7 +28,7 @@
 - name : get tomcat status
   ansible.builtin.stat :
     path : /opt/tomcat/latest/bin/startup.sh
-    register : tmocat_startuo
+  register : tmocat_startuo
 - name : Extract tomcat 
   ansible.builtin.unarchive :
     src : "https://www-eu.apache.org/dist/tomcat/tomcat-{{ tomcat_major_version }}/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
