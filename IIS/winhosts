@@ -1,0 +1,8 @@
+[winserver]
+13.82.142.244
+
+[winserver:vars]
+ansible_user=jenkins
+ansible_password='Ab@1060871348'
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
