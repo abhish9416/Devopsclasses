@@ -3,5 +3,5 @@
   hosts: all
   tasks:
     - name: print vault information
-      ansible.built.debug:
+      ansible.builtin.debug:
         msg: "username: {{ user }} password: {{ password }}"
