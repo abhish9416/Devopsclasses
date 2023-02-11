@@ -1,0 +1,13 @@
+---
+pool:
+  name: Azure Pipeline
+  vmImage: ubuntu-latest
+
+trigger:
+  - master
+
+steps:
+  - task: DotNetCoreCLI@2
+    input:
+      command: build
+      projects: src/NopCommerce.sln
