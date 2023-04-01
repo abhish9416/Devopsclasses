@@ -3,3 +3,10 @@
 *.idea
 .terraform.
 *.terraform.lock.hcl
+# Compiled files
+*.tfstate
+*.tfstate.backup
+*.pem
+# Module directory
+.terraform/
+*.hcl
